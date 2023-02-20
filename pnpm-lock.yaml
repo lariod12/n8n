@@ -533,6 +533,7 @@ importers:
       '@codemirror/lang-javascript': ^6.1.2
       '@codemirror/lang-json': ^6.0.1
       '@codemirror/lang-python': ^6.1.1
+      '@codemirror/lang-sql': ^6.4.0
       '@codemirror/language': ^6.2.1
       '@codemirror/lint': ^6.0.0
       '@codemirror/state': ^6.1.4
@@ -619,6 +620,7 @@ importers:
       '@codemirror/lang-javascript': 6.1.2
       '@codemirror/lang-json': 6.0.1
       '@codemirror/lang-python': 6.1.1_zyklskjzaprvz25ee7sq7godcq
+      '@codemirror/lang-sql': 6.4.0_gu445lycfriim3kznnyeahleva
       '@codemirror/language': 6.2.1
       '@codemirror/lint': 6.0.0
       '@codemirror/state': 6.1.4
@@ -2801,6 +2803,19 @@ packages:
       '@lezer/python': 1.1.2
     transitivePeerDependencies:
       - '@codemirror/state'
+      - '@codemirror/view'
+      - '@lezer/common'
+    dev: false
+
+  /@codemirror/lang-sql/6.4.0_gu445lycfriim3kznnyeahleva:
+    resolution: {integrity: sha512-UWGK1+zc9+JtkiT+XxHByp4N6VLgLvC2x0tIudrJG26gyNtn0hWOVoB0A8kh/NABPWkKl3tLWDYf2qOBJS9Zdw==}
+    dependencies:
+      '@codemirror/autocomplete': 6.4.0_wo7q3lvweq5evsu423o7qzum5i
+      '@codemirror/language': 6.2.1
+      '@codemirror/state': 6.1.4
+      '@lezer/highlight': 1.1.1
+      '@lezer/lr': 1.2.3
+    transitivePeerDependencies:
       - '@codemirror/view'
       - '@lezer/common'
     dev: false
@@ -6712,7 +6727,7 @@ packages:
       vite: ^3.0.0 || ^4.0.0
       vue: ^2.7.0-0
     dependencies:
-      vite: 4.0.4_sass@1.57.1
+      vite: 4.0.4_sass@1.55.0+terser@5.16.1
       vue: 2.7.14
     dev: true
 

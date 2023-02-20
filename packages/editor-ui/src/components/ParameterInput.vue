@@ -47,10 +47,11 @@
 			/>
 			<div
 				v-else-if="
-					['json', 'string'].includes(parameter.type) ||
+					['json', 'string', 'sql'].includes(parameter.type) ||
 					remoteParameterOptionsLoadingIssues !== null
 				"
 			>
+				<b>asfd {{ getArgument('editorLanguage') }}</b>
 				<code-edit
 					v-if="codeEditDialogVisible"
 					:value="value"
@@ -74,7 +75,7 @@
 				></text-edit>
 
 				<code-node-editor
-					v-if="getArgument('editor') === 'codeNodeEditor' && isCodeNode(node)"
+					v-if="getArgument('editor') === 'codeNodeEditor'"
 					:mode="node.parameters.mode"
 					:value="value"
 					:defaultValue="parameter.default"

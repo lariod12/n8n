@@ -10,6 +10,7 @@ import { EditorView, ViewUpdate } from '@codemirror/view';
 import { javascript } from '@codemirror/lang-javascript';
 import { python } from '@codemirror/lang-python';
 import { json } from '@codemirror/lang-json';
+import { sql } from '@codemirror/lang-sql';
 
 import { baseExtensions } from './baseExtensions';
 import { linterExtension } from './languages/javaScript/linter';
@@ -46,7 +47,8 @@ export default mixins(linterExtension, completerExtension, workflowHelpers).exte
 		language: {
 			type: String,
 			default: 'javaScript',
-			validator: (value: string): boolean => ['javaScript', 'json', 'python'].includes(value),
+			validator: (value: string): boolean =>
+				['javaScript', 'json', 'python', 'sql'].includes(value),
 		},
 	},
 	data() {
@@ -127,7 +129,7 @@ export default mixins(linterExtension, completerExtension, workflowHelpers).exte
 					insertedText = full.slice(lastDotIndex + 1);
 				}
 
-				// TODO: Still has to get updated for Python and JSON
+				// TODO: Still has to get updated for Python, JSON and SQL
 				this.$telemetry.track('User autocompleted code', {
 					instance_id: this.rootStore.instanceId,
 					node_type: CODE_NODE_TYPE,
@@ -187,6 +189,17 @@ export default mixins(linterExtension, completerExtension, workflowHelpers).exte
 					...stateBasedExtensions,
 					codeNodeEditorTheme({ maxHeight: this.maxHeight }),
 					json(),
+				],
+			};
+		} else if (this.language === 'sql') {
+			console.log('in sql');
+			editorSettings = {
+				doc: value,
+				extensions: [
+					...baseExtensions,
+					...stateBasedExtensions,
+					codeNodeEditorTheme({ maxHeight: this.maxHeight }),
+					sql(),
 				],
 			};
 		} else {
