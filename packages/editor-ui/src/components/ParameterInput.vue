@@ -51,7 +51,6 @@
 					remoteParameterOptionsLoadingIssues !== null
 				"
 			>
-				<b>asfd {{ getArgument('editorLanguage') }}</b>
 				<code-edit
 					v-if="codeEditDialogVisible"
 					:value="value"
