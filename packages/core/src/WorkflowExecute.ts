@@ -11,7 +11,7 @@
 /* eslint-disable @typescript-eslint/prefer-nullish-coalescing */
 import PCancelable from 'p-cancelable';
 
-import {
+import type {
 	ExecutionError,
 	IConnection,
 	IDataObject,
@@ -30,11 +30,14 @@ import {
 	IWaitingForExecution,
 	IWaitingForExecutionSource,
 	IWorkflowExecuteAdditionalData,
-	LoggerProxy as Logger,
 	NodeApiError,
 	NodeOperationError,
 	Workflow,
 	WorkflowExecuteMode,
+} from 'n8n-workflow';
+import {
+	ErrorReporterProxy as ErrorReporter,
+	LoggerProxy as Logger,
 	WorkflowOperationError,
 } from 'n8n-workflow';
 import get from 'lodash.get';
@@ -192,10 +195,23 @@ export class WorkflowExecute {
 						if (node && pinData && pinData[node.name]) {
 							incomingData.push(pinData[node.name]);
 						} else {
-							incomingData.push(
-								// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-								runData[connection.node][runIndex].data![connection.type][connection.index]!,
-							);
+							try {
+								incomingData.push(
+									// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+									runData[connection.node][runIndex].data![connection.type][connection.index]!,
+								);
+							} catch (error) {
+								ErrorReporter.error(
+									new Error('Failed to process incoming data', { cause: error }),
+									{
+										extra: {
+											runData,
+											node: connection.node,
+											runIndex,
+										},
+									},
+								);
+							}
 						}
 
 						incomingSourceData.main.push({
