@@ -1654,6 +1654,7 @@ export interface IWorkflowExecuteAdditionalData {
 	) => Promise<any>;
 	// hooks?: IWorkflowExecuteHooks;
 	executionId?: string;
+	restartExecutionId?: string;
 	hooks?: WorkflowHooks;
 	httpResponse?: express.Response;
 	httpRequest?: express.Request;
